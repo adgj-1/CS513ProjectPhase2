@@ -1,0 +1,24 @@
+# @BEGIN main
+# @PARAM script_path
+# @IN input_data_menu @URI file:{script_path}/../data_cleaned/Menu-after.csv
+# @IN input_data_menupage @URI file:{script_path}/../data_cleaned/MenuPage-after.csv
+# @IN input_data_menuitem @URI file:{script_path}/../data_cleaned/MenuItem-after.csv
+# @IN input_data_dish @URI file:{script_path}/../data_cleaned/Dish-csv.csv
+
+# @OUT output_data_menupage @URI file:{script_path}/../data_cleaned/csv_out/MenuPageClean.csv
+
+# @BEGIN icv1 @desc Query for the ids of the rows that violates inclusion constraint in MenuPage
+# @PARAM colname_menu_id
+# @IN input_data_menu
+# @IN input_data_menupage
+# @OUT icv_data
+# @END icv1
+
+# @BEGIN filter @desc Filter by removing all constraint violating rows from MenuPage
+# @PARAM colname_id
+# @IN input_data_menupage
+# @IN icv_data
+# @OUT output_data_menupage
+# @END filter
+
+# @END main

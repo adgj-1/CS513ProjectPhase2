@@ -1,0 +1,71 @@
+digraph main {
+
+/* Start of box around nodes in workflow */
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+
+/* Style for nodes representing program blocks in workflow */
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing program blocks in workflow */
+filter
+icv1
+
+/* Style for nodes representing data blocks in workflow */
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+
+/* Nodes representing data blocks in workflow */
+colname_id [label=colname_id fillcolor="#FFFFFF"]
+colname_menu_id [label=colname_menu_id fillcolor="#FFFFFF"]
+icv_data
+input_data_menu
+input_data_menupage
+output_data_menupage
+
+/* Edges representing flow of data into and out of code blocks */
+colname_id -> filter
+colname_menu_id -> icv1
+icv_data -> filter
+input_data_menu -> icv1
+input_data_menupage -> icv1
+input_data_menupage -> filter
+icv1 -> icv_data
+filter -> output_data_menupage
+
+/* End of box around nodes in workflow */
+}}
+
+/* Start of hidden box around workflow inputs */
+subgraph cluster_workflow_inputs_box_outer { label=""; penwidth=0
+subgraph cluster_workflow_inputs_box_inner { label=""; penwidth=0
+
+/* Style for nodes representing workflow ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow input ports */
+"workflow input input_data_menu" [label=""]
+"workflow input input_data_menupage" [label=""]
+
+/* End of hidden box around workflow inputs */
+}}
+
+/* Start of hidden box around workflow outputs */
+subgraph cluster_workflow_outputs_box_outer { label=""; penwidth=0
+subgraph cluster_workflow_outputs_box_inner { label=""; penwidth=0
+
+/* Style for nodes representing workflow ports */
+node[shape=circle style="rounded,filled" fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+
+/* Nodes representing workflow output ports */
+"workflow output output_data_menupage" [label=""]
+
+/* End of hidden box around workflow outputs */
+}}
+
+/* Edges representing flow of workflow input data */
+"workflow input input_data_menu" -> input_data_menu
+"workflow input input_data_menupage" -> input_data_menupage
+
+/* Edges representing flow of workflow output data */
+output_data_menupage -> "workflow output output_data_menupage"
+}

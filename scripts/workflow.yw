@@ -1,0 +1,65 @@
+# @BEGIN main @desc ICV and Query Script Workflow
+# @PARAM script_path
+# @PARAM table_name
+# @PARAM query
+
+# @IN input_csv_data @URI file:{script_path}/../data_cleaned/{table_name}-after.csv @desc csv data after OpenRefine cleaning
+# @IN input_csv_original_data @URI file:{script_path}/../data_original/{table_name}.csv @desc original uncleaned csv data
+
+# @OUT output_csv_data @URI file:{script_path}/../data_cleaned/csv_out/{table_name}.csv @desc csv data with violating constraints removed
+# @OUT output_db @URI file:{script_path}/../data_cleaned/db/database.db @desc midstage database after OpenRefine cleaning
+# @OUT output_db_clean @URI file:{script_path}/../data_cleaned/db/database_clean.db @desc final cleaned database with violating constraints removed
+# @OUT output_db_original @URI file:{script_path}/../data_cleaned/db/database_original.db @desc database containing original uncleaned data
+# @OUT stdout_query_clean @URI file:{script_path}/../querylog/{query}_clean.txt
+# @OUT stdout_query_dirty @URI file:{script_path}/../querylog/{query}_dirty.txt
+
+
+# @BEGIN save_initial_db
+# @PARAM script_path
+# @PARAM table_name
+# @IN input_csv_data
+
+# @OUT output_db
+
+# @END save_initial_db
+
+
+# @BEGIN save_original_db
+# @PARAM script_path
+# @PARAM table_name
+# @IN input_csv_data
+
+# @OUT output_db
+
+# @END save_original_db
+
+
+# @BEGIN integrity_constraint
+# @PARAM table_name
+# @IN output_db
+# @OUT output_csv_data
+
+# @END integrity_constraint
+
+
+# @BEGIN save_clean_db
+# @PARAM script_path
+# @PARAM table_name
+# @IN output_csv_data
+# @OUT output_db_clean
+
+# @END save_clean_db
+
+
+# @BEGIN sample_query_test
+# @PARAM script_path
+# @PARAM query
+# @IN output_db_clean
+# @IN output_db_original
+# @OUT stdout_query_clean
+# @OUT stdout_query_dirty
+
+# @END sample_query_test
+
+
+# @END main
